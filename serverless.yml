@@ -29,12 +29,12 @@ functions:
           method: GET
           cors: false
   getUser:
-    handler: lambdas/getUser.handler
+    handler: handler.getUser
     events:
       - http:
           path: /get-user/{ID}
           method: GET
-          cors: true
+          cors: false
 
 resources:
   Resources:
