@@ -80,6 +80,18 @@ functions:
           path: /post-file
           method: POST
           cors: false
+  proxy:
+    handler: handler.proxy
+    events:
+      - http:
+          path: chuck-norris/{proxy+}
+          method: ANY
+          integration: http-proxy
+          request:
+            uri: https://api.chucknorris.io/{proxy}
+            parameters:
+              paths:
+                proxy: true
 
 resources:
   Resources:
