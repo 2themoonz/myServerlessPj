@@ -54,6 +54,13 @@ functions:
           path: /get-player-score/{ID}
           method: GET
           cors: false
+  postPlayerScore:
+    handler: handler.postPlayerScore
+    events:
+      - http:
+          path: /post-player-score
+          method: POST
+          cors: false
 
 resources:
   Resources:
