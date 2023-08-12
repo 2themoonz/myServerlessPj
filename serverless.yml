@@ -13,6 +13,7 @@ provider:
   region: us-east-1
   environment:
     tableName: ${self:custom.tableName}
+    bucketName: ${self:custom.bucketName}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -28,8 +29,9 @@ package:
 
 custom:
   tableName: player-points
+  bucketName: myserverlesspj-bucket66
   s3Sync:
-    - bucketName: myserverlesspj-bucket66
+    - bucketName: ${self:custom.bucketName}
       localDir: UploadData
 
 functions:
@@ -38,13 +40,6 @@ functions:
     events:
       - http:
           path: /hello
-          method: GET
-          cors: false
-  getUser:
-    handler: handler.getUser
-    events:
-      - http:
-          path: /get-user/{ID}
           method: GET
           cors: false
   getPlayerScore:
@@ -59,6 +54,20 @@ functions:
     events:
       - http:
           path: /post-player-score
+          method: POST
+          cors: false
+  getFile:
+    handler: handler.getFile
+    events:
+      - http:
+          path: /get-file/{fileName}
+          method: GET
+          cors: false
+  createFile:
+    handler: handler.createFile
+    events:
+      - http:
+          path: /post-file
           method: POST
           cors: false
 
