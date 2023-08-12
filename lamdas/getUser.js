@@ -1,6 +1,7 @@
+"use strict";
 const Responses = require("./API_Responses");
 
-exports.handler = async (event) => {
+module.exports.handler = async (event) => {
   console.log("event", event);
 
   if (!event.pathParameters || !event.pathParameters.ID) {
