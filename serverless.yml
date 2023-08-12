@@ -29,6 +29,7 @@ provider:
 plugins:
   - serverless-s3-sync
   - serverless-webpack
+  - serverless-add-api-key
 
 package:
   individually: true
@@ -39,6 +40,8 @@ custom:
   s3Sync:
     - bucketName: ${self:custom.bucketName}
       localDir: UploadData
+  apiKeys:
+    - name: MyFirstApiKey
 
 functions:
   hello:
@@ -54,7 +57,8 @@ functions:
       - http:
           path: /get-player-score/{ID}
           method: GET
-          cors: false
+          cors: true
+          private: true
   postPlayerScore:
     handler: handler.postPlayerScore
     events:
