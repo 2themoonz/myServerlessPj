@@ -10,6 +10,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   profile: ethanp_serverless
+  region: us-east-1
 
 plugins:
   - serverless-s3-sync
@@ -20,8 +21,13 @@ custom:
       localDir: UploadData
 
 functions:
-  hello:
-    handler: handler.hello
+  getUser:
+    handler: lambdas/getUser.handler
+    events:
+      - http:
+          path: /get-user/{ID}
+          method: GET
+          cors: true
 
 resources:
   Resources:
