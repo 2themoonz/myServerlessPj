@@ -21,6 +21,13 @@ custom:
       localDir: UploadData
 
 functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /hello
+          method: GET
+          cors: false
   getUser:
     handler: lambdas/getUser.handler
     events:
