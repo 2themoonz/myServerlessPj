@@ -28,8 +28,9 @@ const sendEmail = async (event) => {
     await SES.sendEmail(params).promise();
     return Responses._200({ message: "Email sent" });
   } catch (error) {
-    console.log(error);
-    return Responses._400({ message: "Email failed to send" });
+    return Responses._400({
+      message: error?.message || "Failed to send email",
+    });
   }
 };
 
