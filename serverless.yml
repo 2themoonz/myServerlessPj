@@ -25,6 +25,10 @@ provider:
           Action:
             - s3:*
           Resource: "*"
+        - Effect: Allow
+          Action:
+            - ses:*
+          Resource: "*"
 
 plugins:
   - serverless-s3-sync
@@ -37,6 +41,12 @@ package:
 custom:
   tableName: player-points
   bucketName: myserverlesspj-bucket66
+  webpackIncludeModules:
+    forceExclude:
+      - aws-sdk
+  webpack:
+    webpackConfig: ./webpack.config.js
+    concurrency: ${opt:compile-concurrency, 6}
   s3Sync:
     - bucketName: ${self:custom.bucketName}
       localDir: UploadData
@@ -92,7 +102,13 @@ functions:
             parameters:
               paths:
                 proxy: true
-
+  sendEmail:
+    handler: handler.sendEmail
+    events:
+      - http:
+          path: /send-email
+          method: POST
+          cors: true
 resources:
   Resources:
     DemoBucketUpload:
